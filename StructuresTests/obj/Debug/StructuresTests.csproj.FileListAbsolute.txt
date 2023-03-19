@@ -1,0 +1,6 @@
+C:\Users\Polina\source\repos\OOP_HOMETASKS\StructuresTests\bin\Debug\StructuresTests.dll
+C:\Users\Polina\source\repos\OOP_HOMETASKS\StructuresTests\bin\Debug\StructuresTests.pdb
+C:\Users\Polina\source\repos\OOP_HOMETASKS\StructuresTests\obj\Debug\StructuresTests.csproj.AssemblyReference.cache
+C:\Users\Polina\source\repos\OOP_HOMETASKS\StructuresTests\obj\Debug\StructuresTests.csproj.CoreCompileInputs.cache
+C:\Users\Polina\source\repos\OOP_HOMETASKS\StructuresTests\obj\Debug\StructuresTests.dll
+C:\Users\Polina\source\repos\OOP_HOMETASKS\StructuresTests\obj\Debug\StructuresTests.pdb

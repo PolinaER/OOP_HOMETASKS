@@ -1,0 +1,6 @@
+C:\Users\Polina\source\repos\OOP_HOMETASKS\Struct\bin\Debug\Struct.dll
+C:\Users\Polina\source\repos\OOP_HOMETASKS\Struct\bin\Debug\Struct.pdb
+C:\Users\Polina\source\repos\OOP_HOMETASKS\Struct\obj\Debug\Struct.csproj.AssemblyReference.cache
+C:\Users\Polina\source\repos\OOP_HOMETASKS\Struct\obj\Debug\Struct.csproj.CoreCompileInputs.cache
+C:\Users\Polina\source\repos\OOP_HOMETASKS\Struct\obj\Debug\Struct.dll
+C:\Users\Polina\source\repos\OOP_HOMETASKS\Struct\obj\Debug\Struct.pdb
