@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32228.343
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotoRed", "PhotoRed.csproj", "{77F3522C-2DCF-41A2-A06F-68339BE91E8B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{77F3522C-2DCF-41A2-A06F-68339BE91E8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77F3522C-2DCF-41A2-A06F-68339BE91E8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77F3522C-2DCF-41A2-A06F-68339BE91E8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77F3522C-2DCF-41A2-A06F-68339BE91E8B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {18D9111B-DF07-4DF0-9539-4C1344E06D2F}
+	EndGlobalSection
+EndGlobal
