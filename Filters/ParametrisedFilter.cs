@@ -9,6 +9,7 @@ namespace PhotoRed
     public abstract class ParametrisedFilter<TParameters> : IFilter
         where TParameters : IParameters, new() 
     {
+        protected string name;
         public ParametrInfo[] GetParametrsInfo() => (new TParameters()).GetDiscription();
 
         public Photo Process(Photo original, double[] values)
@@ -19,5 +20,10 @@ namespace PhotoRed
         }
 
         public abstract Photo Process(Photo original, TParameters parameters);
+
+        public override string ToString()
+        {
+            return name;
+        }
     }
 }

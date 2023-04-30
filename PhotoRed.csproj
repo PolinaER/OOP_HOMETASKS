@@ -51,15 +51,18 @@
     <Compile Include="Data\Pixel.cs" />
     <Compile Include="Filters\EmpryParameters.cs" />
     <Compile Include="Filters\GammaCorrectionParameters.cs" />
-    <Compile Include="Filters\GammaCorrectionFilter.cs" />
-    <Compile Include="Filters\GrayScaleFilter.cs" />
     <Compile Include="Filters\IFilter.cs" />
     <Compile Include="Filters\IParameters.cs" />
-    <Compile Include="Filters\LightningFilter.cs" />
+    <Compile Include="Filters\Transform\ITransformer.cs" />
+    <Compile Include="Filters\Transform\RotateTransformer.cs" />
+    <Compile Include="Filters\Transform\RotationParameters.cs" />
     <Compile Include="Filters\LightningParameters.cs" />
     <Compile Include="Filters\ParametrInfo.cs" />
     <Compile Include="Filters\ParametrisedFilter.cs" />
     <Compile Include="Filters\PixelFilter.cs" />
+    <Compile Include="Filters\Transform\SimpleTransformer.cs" />
+    <Compile Include="Filters\Transform\TransformFilter.cs" />
+    <Compile Include="Filters\Transform\TransformFilter%28TParameters%29.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

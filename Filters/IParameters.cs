@@ -9,7 +9,6 @@ namespace PhotoRed
     public interface IParameters
     {
         ParametrInfo[] GetDiscription();
-
         void SetValues(double[] values);
     }
 }
