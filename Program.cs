@@ -56,9 +56,10 @@ namespace PhotoRed
 
             mainForm.AddFilter(new TransformFilter(
                 "Отражение относительно побочной диагонали",
-                 oldSize => new Size(oldSize.Height, oldSize.Width),
+                oldSize => new Size(oldSize.Height, oldSize.Width),
                 (newPoint, oldSize) => new Point(oldSize.Width - newPoint.Y - 1, oldSize.Height - newPoint.X - 1)
                 ));
+
 
             Application.Run(mainForm);
         }
