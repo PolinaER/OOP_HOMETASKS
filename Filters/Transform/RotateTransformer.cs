@@ -23,7 +23,7 @@ namespace PhotoRed
 
         public Point? MapPoint(Point newPoint)
         {
-            newPoint = newPoint = new Point(newPoint.X - ResultSize.Width / 2, newPoint.Y - ResultSize.Height / 2);
+            newPoint = new Point(newPoint.X - ResultSize.Width / 2, newPoint.Y - ResultSize.Height / 2);
             var x = (int)(newPoint.X * Math.Cos(angleInRadians) - newPoint.Y * Math.Sin(angleInRadians) + oldSize.Width / 2);
             var y = (int)(newPoint.X * Math.Sin(angleInRadians) + newPoint.Y * Math.Cos(angleInRadians) + oldSize.Height / 2);
 
