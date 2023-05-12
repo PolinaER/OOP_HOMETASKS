@@ -63,6 +63,8 @@
     <Compile Include="Filters\Transform\SimpleTransformer.cs" />
     <Compile Include="Filters\Transform\TransformFilter.cs" />
     <Compile Include="Filters\Transform\TransformFilter%28TParameters%29.cs" />
+    <Compile Include="Filters\Transform\UpperParameters.cs" />
+    <Compile Include="Filters\Transform\UpperTransformer.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
