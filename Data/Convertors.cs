@@ -33,43 +33,92 @@ namespace PhotoRed
                         (int)Math.Round(photo[x, y].B * 255)));
             return bmp;
         }
-        public static Pixel HSLToPixel(double hue, double saturation, double lightness) 
+
+        public static Pixel PixelToHSL(Pixel pixel)
         {
-            double a1;
-            if (lightness < 0.5)
-                a1 = lightness * (1 + saturation);
+            var r = pixel.R;
+            var g = pixel.G;
+            var b = pixel.B;
+            double h;
+            double s;
+
+            var max = Math.Max(Math.Max(r, g),b);
+            var min= Math.Min(Math.Min(r, g), b);
+            double l = 0.5 * (max + min);
+
+            if (max == r && g >= b)
+                h = 60 * ((g - b) / (max - min)) + 0;
+            else if (max == r && g < b)
+                h = 60 * ((g - b) / (max - min)) + 360;
+            else if (max == g)
+                h = 60 * ((b - r) / (max - min)) + 120;
+            else if (max == b)
+                h = 60 * ((r - g) / (max - min)) + 240;
             else
-                a1 = lightness + saturation - lightness * saturation;
+                throw new NotImplementedException();
 
-            double a2 = 2 * lightness - a1;
-            hue = hue / 360;
-            double r = CountColor(CheckTColor(hue + 0.333), a1, a2);
-            double g = CountColor(CheckTColor(hue), a1, a2);
-            double b = CountColor(CheckTColor(hue - 0.333), a1, a2);
+            if (l == 0 || max == min)
+                s = 0;
+            else if (l > 0 && l <= 0.5)
+                s = (max - min) / (max + min);
+            else if (l > 0.5 && l < 1)
+                s = (max - min) / (2 - (max + min));
+            else
+                s = (max - min) / (1 - Math.Abs(1 - (max + min)));
 
-            return new Pixel(r, g, b);
+            pixel.H = h;
+            pixel.L = l;
+            pixel.S = s;
+
+            return pixel;
+        }
+
+        public static Pixel HSLToPixel(Pixel pixel, double l)
+        {
+            double q;
+            if (l < 0.5)
+                q = l * (1.0 + pixel.S);
+            else
+                q = l + pixel.S - (l * pixel.S);
+
+            var p = 2.0 * l - q;
+
+            var h = pixel.H / 360;
+            var tr = h + (1 / 3);
+            var tg = h;
+            var tb = h - (1 / 3);
+
+            tr = CheckTColor(tr);
+            tg = CheckTColor(tg);
+            tb = CheckTColor(tb);
+
+            pixel.R = CountColor(tr, p, q);
+            pixel.G = CountColor(tg, p, q);
+            pixel.B = CountColor(tb, p, q);
+
+            return pixel;
         }
 
         static double CheckTColor(double c)
         {
             if (c < 0)
-                return c + 1;
+                return c + 1.0;
             else if (c > 1)
                 return c - 1;
             else
                 return c;
         }
 
-        static double CountColor(double c, double a1, double a2)
+        static double CountColor(double c, double p, double q)
         {
-            if (6 * c < 1)
-                return a2 + (a1 - a2) * 6 * c;
-            else if (2 * c < 1)
-                return a1;
-            else if (3 * c < 2)
-                return a2 + (a1 - a2) * (0.666 - c) * 6;
+            if (c < (1 / 6))
+                return p + ((q - p) * 6.0 * c);
+            else if (c >= (1 / 6) && c < 0.5)
+                return q;
+            else if (c >= 0.5 && c < (2 / 3))
+                return p + ((q - p) * ((2 / 3) - c) * 6.0);
             else
-                return a2;
+                return p;
         }
     }
 }

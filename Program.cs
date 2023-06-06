@@ -33,7 +33,12 @@ namespace PhotoRed
 
             mainForm.AddFilter(new PixelFilter<GammaCorrectionParameters>(
                 "Гамма-коррекция",
-                (pixel, parameters)=> Convertors.HSLToPixel(pixel.H, pixel.S, Math.Pow(pixel.L, 1 / parameters.Gamma))));
+                (pixel, parameters) =>
+                {
+                    var l = 0.5 * (Math.Max(Math.Max(pixel.R, pixel.G), pixel.B) + Math.Min(Math.Min(pixel.R, pixel.G), pixel.B));
+                    var c = Math.Pow(l, (2 / parameters.Gamma));
+                    return Convertors.HSLToPixel(Convertors.PixelToHSL(pixel), c);
+                }));
 
             mainForm.AddFilter(new TransformFilter(
                 "Отражение по вертикали",

@@ -6,9 +6,5 @@ using System.Threading.Tasks;
 
 namespace PhotoRed
 {
-    public interface IParameters
-    {
-        ParametrInfo[] GetDiscription();
-        void SetValues(double[] values);
-    }
+    public class EmpryParameters : IParameters { }
 }

@@ -17,39 +17,12 @@ namespace PhotoRed
 		private double b;
 		public double B { get => b; set => b = CheckValue(value); }
 
-		double delta { get => maxC-minC; }
-		double maxC { get => Math.Max(R, Math.Max(G, B)); }
-		double minC { get => Math.Min(R, Math.Min(G, B)); }
-		public double H { 
-			get {
-				if (delta == 0)
-					return 0;
-				else if (maxC == R)
-					return ToHue((G-B)/delta*60);
-				else if (maxC == G)
-					return ToHue((2+(B-R)/delta)*60);
-				else
-					return ToHue((4+(R-G)/delta)*60);
-			}
-		}
-		public double S { 
-			get 
-            {
-				if (0.5 * (maxC + minC)<= 0)
-					return delta/(maxC+minC);
-				else 
-					return delta / (2-maxC-minC);
-			}
-		}
-		public double L { 
-			get 
-            {
-				return 0.5 * (maxC + minC);
-            }
 
-		}
+		public double H;
+		public double S;
+		public double L;
 
-		public Pixel(double red, double green, double blue) : this()
+        public Pixel(double red, double green, double blue) : this()
 		{
 			R = red;
 			G = green;
@@ -80,12 +53,5 @@ namespace PhotoRed
 
 			return lightness;
 		}
-		public static double ToHue(double val)
-        {
-			if (val < 0)
-				return val + 360;
-			else
-				return val;
-        }
-	}
+    }
 }
