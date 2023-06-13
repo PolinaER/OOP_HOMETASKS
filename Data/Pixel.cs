@@ -12,7 +12,7 @@ namespace PhotoRed
 		public double R { get => r; set => r = CheckValue(value); }
 
 		private double g;
-		public double G { get => g; set => g = CheckValue(value); }
+		public double G { get => g; set => g = CheckValue(value); } 
 
 		private double b;
 		public double B { get => b; set => b = CheckValue(value); }
