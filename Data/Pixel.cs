@@ -21,7 +21,7 @@ namespace PhotoRed
 		public double H { get => h; set => h = CheckHue(value); }
 
 		private double s;
-		public double S { get => s; set => s = CheckVal(value); }
+		public double S { get => s; set => s = CheckVal(RoundSaturation(value)); }
 
 		private double l;
 		public double L { get => l; set => l = CheckVal(value); }
@@ -73,6 +73,15 @@ namespace PhotoRed
 				throw new ArgumentException("Неверное значение Hue");
 			return hue;
 		}
+
+		public static double RoundSaturation(double s)
+        {
+			if (s > 1)
+				return 1;
+			else
+				return s;
+			
+        }
 
 		private static double Trim(double lightness) 
 		{
