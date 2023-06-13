@@ -17,16 +17,30 @@ namespace PhotoRed
 		private double b;
 		public double B { get => b; set => b = CheckValue(value); }
 
+		private double h;
+		public double H { get => h; set => h = CheckHue(value); }
 
-		public double H;
-		public double S;
-		public double L;
+		private double s;
+		public double S { get => s; set => s = CheckVal(value); }
 
-        public Pixel(double red, double green, double blue) : this()
+		private double l;
+		public double L { get => l; set => l = CheckVal(value); }
+
+
+		public Pixel(double red, double green, double blue) : this()
 		{
 			R = red;
 			G = green;
 			B = blue;
+		}
+		public Pixel(double red, double green, double blue, double h, double s, double l) : this()
+		{
+			R = red;
+			G = green;
+			B = blue;
+			H = h;
+			S = s;
+			L = l;
 		}
 
 		public static Pixel operator *(double k, Pixel p) 
@@ -46,6 +60,20 @@ namespace PhotoRed
 				throw new ArgumentException("Неверное значение яркости канала");
 			return val;
 		}
+		private double CheckVal(double val)
+		{
+			if (val < 0 || val > 1)
+				throw new ArgumentException("Неверное значение S/L");
+			return val;
+		}
+
+		private double CheckHue(double hue)
+        {
+			if (hue < 0 || hue > 360)
+				throw new ArgumentException("Неверное значение Hue");
+			return hue;
+		}
+
 		private static double Trim(double lightness) 
 		{
 			if (lightness > 1)
