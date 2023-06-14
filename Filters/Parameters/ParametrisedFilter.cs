@@ -10,12 +10,14 @@ namespace PhotoRed
         where TParameters : IParameters, new() 
     {
         protected string name;
-        public ParametrInfo[] GetParametrsInfo() => (new TParameters()).GetDiscription();
+
+        IParametersHandler<TParameters> handler = new StaticParametersHandler<TParameters>();
+        
+        public ParametrInfo[] GetParametrsInfo() => handler.GetDescriptions();
 
         public Photo Process(Photo original, double[] values)
         {
-            var parameters = new TParameters();
-            parameters.SetValues(values);
+            var parameters = handler.CreateParameters(values);
             return Process(original, parameters);
         }
 

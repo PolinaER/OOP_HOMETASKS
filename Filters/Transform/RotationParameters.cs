@@ -8,25 +8,11 @@ namespace PhotoRed
 {
     public class RotationParameters : IParameters
     {
-        public double AngleInDegrees { get; set; }
-        public ParametrInfo[] GetDiscription()
-        {
-            return new[]
-           {
-                new ParametrInfo()
-                {
-                    Name="Угол в градусах",
+        [ParametrInfo(Name = "Угол в градусах",
                     MinValue = -360,
                     MaxValue = 360,
-                    DefaultValue = 0, 
-                    Increment = 5
-                }
-            };
-        }
-
-        public void SetValues(double[] values)
-        {
-            AngleInDegrees = values[0];
-        }
+                    DefaultValue = 0,
+                    Increment = 5)]
+        public double AngleInDegrees { get; set; }
     }
 }

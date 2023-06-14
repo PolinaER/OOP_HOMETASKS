@@ -12,48 +12,35 @@ namespace PhotoRed
 		public double R { get => r; set => r = CheckValue(value); }
 
 		private double g;
-		public double G { get => g; set => g = CheckValue(value); }
+		public double G { get => g; set => g = CheckValue(value); } 
 
 		private double b;
 		public double B { get => b; set => b = CheckValue(value); }
 
-		double delta { get => maxC-minC; }
-		double maxC { get => Math.Max(R, Math.Max(G, B)); }
-		double minC { get => Math.Min(R, Math.Min(G, B)); }
-		public double H { 
-			get {
-				if (delta == 0)
-					return 0;
-				else if (maxC == R)
-					return ToHue((G-B)/delta*60);
-				else if (maxC == G)
-					return ToHue((2+(B-R)/delta)*60);
-				else
-					return ToHue((4+(R-G)/delta)*60);
-			}
-		}
-		public double S { 
-			get 
-            {
-				if (0.5 * (maxC + minC)<= 0)
-					return delta/(maxC+minC);
-				else 
-					return delta / (2-maxC-minC);
-			}
-		}
-		public double L { 
-			get 
-            {
-				return 0.5 * (maxC + minC);
-            }
+		private double h;
+		public double H { get => h; set => h = CheckHue(value); }
 
-		}
+		private double s;
+		public double S { get => s; set => s = CheckVal(RoundSaturation(value)); }
+
+		private double l;
+		public double L { get => l; set => l = CheckVal(value); }
+
 
 		public Pixel(double red, double green, double blue) : this()
 		{
 			R = red;
 			G = green;
 			B = blue;
+		}
+		public Pixel(double red, double green, double blue, double h, double s, double l) : this()
+		{
+			R = red;
+			G = green;
+			B = blue;
+			H = h;
+			S = s;
+			L = l;
 		}
 
 		public static Pixel operator *(double k, Pixel p) 
@@ -73,6 +60,29 @@ namespace PhotoRed
 				throw new ArgumentException("Неверное значение яркости канала");
 			return val;
 		}
+		private double CheckVal(double val)
+		{
+			if (val < 0 || val > 1)
+				throw new ArgumentException("Неверное значение S/L");
+			return val;
+		}
+
+		private double CheckHue(double hue)
+        {
+			if (hue < 0 || hue > 360)
+				throw new ArgumentException("Неверное значение Hue");
+			return hue;
+		}
+
+		public static double RoundSaturation(double s)
+        {
+			if (s > 1)
+				return 1;
+			else
+				return s;
+			
+        }
+
 		private static double Trim(double lightness) 
 		{
 			if (lightness > 1)
@@ -80,12 +90,5 @@ namespace PhotoRed
 
 			return lightness;
 		}
-		public static double ToHue(double val)
-        {
-			if (val < 0)
-				return val + 360;
-			else
-				return val;
-        }
-	}
+    }
 }

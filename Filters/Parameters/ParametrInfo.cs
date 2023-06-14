@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PhotoRed
 {
-    public class ParametrInfo
+    public class ParametrInfo : Attribute
     {
         public string Name { get; set; }
         public double MinValue { get; set; }

@@ -17,7 +17,8 @@ namespace PhotoRed
                 for (var y = 0; y < bmp.Height; y++) 
                 {
                     var p = bmp.GetPixel(x, y);
-                    photo[x, y] = new Pixel(p.R / 255.0, p.G / 255.0, p.B / 255.0);
+
+                    photo[x, y] = GetPixelWithHSL(p.R, p.B, p.G);
                 }
             return photo;
         }
@@ -33,43 +34,89 @@ namespace PhotoRed
                         (int)Math.Round(photo[x, y].B * 255)));
             return bmp;
         }
-        public static Pixel HSLToPixel(double hue, double saturation, double lightness) 
+        public static Pixel GetPixelWithHSL(double red,double blue, double green )
         {
-            double a1;
-            if (lightness < 0.5)
-                a1 = lightness * (1 + saturation);
-            else
-                a1 = lightness + saturation - lightness * saturation;
+            var r = red / 255;
+            var g = green / 255;
+            var b = blue / 255;
+            double h;
+            double s;
+            var max = Math.Max(Math.Max(r, g), b);
+            var min = Math.Min(Math.Min(r, g), b);
+            double l = 0.5 * (max + min);
 
-            double a2 = 2 * lightness - a1;
-            hue = hue / 360;
-            double r = CountColor(CheckTColor(hue + 0.333), a1, a2);
-            double g = CountColor(CheckTColor(hue), a1, a2);
-            double b = CountColor(CheckTColor(hue - 0.333), a1, a2);
+            if (max == min)
+                h = 0;
+            else if (max == r && g >= b)
+                h = 60 * ((g - b) / (max - min)) + 0;
+            else if (max == r && g < b)
+                h = 60 * ((g - b) / (max - min)) + 360;
+            else if (max == g)
+                h = 60 * ((b - r) / (max - min)) + 120;
+            else if (max == b)
+                h = 60 * ((r - g) / (max - min)) + 240;
+            else
+                throw new NotImplementedException("Присворение H");
+
+            if (l == 0 || max == min)
+                s = 0;
+            else if (l > 0 && l <= 0.5)
+                s = (max - min) / (max + min);
+            else if (l > 0.5 && l < 1)
+                s = (max - min) / (2 - (max + min));
+            else
+                s = (max - min) / (1 - Math.Abs(1 - (max + min)));
+
+            return new Pixel(r, g, b, h, s, l);
+        }
+        public static Pixel HSLToPixelGamma(Pixel p, double gamma)
+        {
+            var c = (1 - Math.Abs((2 * gamma) - 1)) * p.S;
+            var x = c * (1 - Math.Abs((p.H / 60 % 2) - 1));
+            var m = gamma - (c / 2);
+            double r;
+            double g;
+            double b;
+            if (p.H >= 0 && p.H < 60)
+            {
+                r = c + m;
+                g = x + m;
+                b = 0 + m;
+            }
+            else if (p.H >= 60 && p.H < 120)
+            {
+                r = x + m;
+                g = c + m;
+                b = 0 + m;
+            }
+            else if (p.H >= 120 && p.H < 180)
+            {
+                r = 0 + m;
+                g = c + m;
+                b = x + m;
+            }
+            else if (p.H >= 180 && p.H < 240)
+            {
+                r = 0 + m;
+                g = x + m;
+                b = c + m;
+            }
+            else if (p.H >= 240 && p.H < 300)
+            {
+                r = x + m;
+                g = 0 + m;
+                b = c + m;
+            }
+            else if (p.H >= 300 && p.H < 360)
+            {
+                r = c + m;
+                g = 0 + m;
+                b = x + m;
+            }
+            else
+                throw new ArgumentException("ToRGBGamma wrong");
 
             return new Pixel(r, g, b);
-        }
-
-        static double CheckTColor(double c)
-        {
-            if (c < 0)
-                return c + 1;
-            else if (c > 1)
-                return c - 1;
-            else
-                return c;
-        }
-
-        static double CountColor(double c, double a1, double a2)
-        {
-            if (6 * c < 1)
-                return a2 + (a1 - a2) * 6 * c;
-            else if (2 * c < 1)
-                return a1;
-            else if (3 * c < 2)
-                return a2 + (a1 - a2) * (0.666 - c) * 6;
-            else
-                return a2;
         }
     }
 }
